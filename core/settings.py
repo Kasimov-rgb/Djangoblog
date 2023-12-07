@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     # my apps
     'apps.blogs',
+    'apps.comments',
 ]
 
 MIDDLEWARE = [

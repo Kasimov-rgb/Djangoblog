@@ -11,6 +11,7 @@
         {% for blog in blogs %}
         <li>
             <a href="{% url 'detail_blog' blog.id %}">{{ blog.title }}</a>
+            <h5>{{ blog.user.username }}</h5>
             <p>{{ blog.description }}</p>
             <img src="{{ blog.image.url }}" alt="">
         </li>

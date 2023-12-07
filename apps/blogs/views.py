@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 from apps.blogs.models import Blog
+from apps.comments.models import Comment
 
 
 def index(request):
@@ -20,6 +21,7 @@ def create_blog(request):
         image = request.FILES['image']
 
         Blog.objects.create(
+            user=request.user,
             title=title,
             description=description,
             image=image,
@@ -34,6 +36,16 @@ def detail_blog(request, pk):
         blog = Blog.objects.get(id=pk)
     except Blog.DoesNotExist:
         ...
+    
+    if request.method == 'POST':
+        text = request.POST['text']
+
+        Comment.objects.create(
+            user=request.user,
+            blog=blog,
+            text=text,
+        )
+        return redirect('detail_blog', blog.id)
     
     return render(request, 'detail.html', locals())
 
